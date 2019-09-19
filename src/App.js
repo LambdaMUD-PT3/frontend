@@ -1,9 +1,14 @@
 import React from 'react';
 
+import GlobalStyle from './styles/GlobalStyle';
+
+import Header from './components/Header';
+
 function App() {
 	return (
 		<>
-			<h1>Lambda MUD Room</h1>
+			<GlobalStyle />
+			<Header />
 		</>
 	);
 }
