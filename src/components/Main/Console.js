@@ -1,26 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Header = () => {
+import Room from './Room';
+import Input from './Input';
+
+const Console = () => {
 	return (
 		<Container>
-			<h1>Lambda MUD Room</h1>
+			<Room />
+			<Input />
 		</Container>
 	);
 };
 
-export default Header;
+export default Console;
 
-const Container = styled.header`
+const Container = styled.section`
 	background: #000;
 	color: #fff;
-	width: 30%;
-	height: 60px;
-	margin: 20px 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 3rem;
+	width: 75%;
+	height: 500px;
 	border-top: 3px solid #fff;
 	border-bottom: 3px solid #fff;
 	position: relative;
@@ -41,5 +40,14 @@ const Container = styled.header`
 		height: 100%;
 		width: 3px;
 		right: -3px;
+		top: 0;
 	}
+
+	pre {
+		user-select: none;
+	}
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 `;
