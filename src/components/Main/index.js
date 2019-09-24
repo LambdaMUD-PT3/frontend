@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Console from './Console';
-import Chat from './Chat';
+import Map from './Map';
 import Commands from './Commands';
 
 const Main = () => {
@@ -10,7 +10,7 @@ const Main = () => {
 		<Container>
 			<Console />
 			<div>
-				<Chat />
+				<Map />
 				<Commands />
 			</div>
 		</Container>

@@ -1,7 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 
+import { Context } from '../../context';
+
 const Input = () => {
+	const { dispatch } = useContext(Context);
 	const [input, setInput] = useState('');
 	const inputField = useRef(null);
 	useEffect(() => {
@@ -15,8 +18,16 @@ const Input = () => {
 		tempEl.parentNode.removeChild(tempEl);
 	}, [input]);
 
+	const handleSubmit = e => {
+		e.preventDefault();
+		const value = document.forms[0][0].value;
+		if (!value) {
+			dispatch({ type: 'NO_INPUT' });
+		}
+	};
+
 	return (
-		<Form>
+		<Form onSubmit={handleSubmit}>
 			<span>></span>
 			<div>
 				<input

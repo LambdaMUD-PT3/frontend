@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
     body {
         background: #A9A9A9;
         font-family: 'Roboto Mono', monospace;
+        overflow: hidden;
     }
 
     #root {
