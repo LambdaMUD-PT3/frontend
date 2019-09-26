@@ -23,13 +23,37 @@ const Input = () => {
 		const value = document.forms[0][0].value;
 		if (!value) {
 			dispatch({ type: 'NO_INPUT' });
+			return;
+		}
+		const split = value.split(' ');
+
+		switch (split[0].toLowerCase()) {
+			case 'login':
+				if (!split[1]) {
+					dispatch({
+						type: 'INCOMPLETE_COMMAND',
+						payload: 'Please enter your username and password',
+					});
+				} else if (split[1] && !split[2]) {
+					dispatch({
+						type: 'INCOMPLETE_COMMAND',
+						payload: 'Please enter your password',
+					});
+				} else {
+					setInput('');
+				}
+				return;
+			default:
+				dispatch({ type: 'INVALID_COMMAND' });
+				setInput('');
+				return;
 		}
 	};
 
 	return (
 		<Form onSubmit={handleSubmit}>
 			<span>></span>
-			<div>
+			<div onClick={() => inputField.current.focus()}>
 				<input
 					type='text'
 					value={input}
@@ -57,6 +81,7 @@ const Form = styled.form`
 		width: 100%;
 		display: flex;
 		align-content: center;
+		cursor: text;
 
 		input {
 			padding-left: 5px;
