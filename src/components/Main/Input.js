@@ -28,9 +28,8 @@ const Input = () => {
       const pass = '*'.repeat(password.length)
       e.target.value = `${split[0]} ${split[1]} ${pass}`
       setInput(e.target.value)
-    } else {
-      setInput(e.target.value)
     }
+    setInput(e.target.value)
   }
 
   const handleSubmit = async e => {
