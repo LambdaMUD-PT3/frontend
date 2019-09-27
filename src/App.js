@@ -16,6 +16,7 @@ function App() {
       dispatch({ type: 'SET_KEY', payload: key })
       dispatch({ type: 'CHANGE_ROOM', payload: JSON.parse(room) })
     }
+    document.forms[0].children[1].children[0].focus()
   }, [dispatch])
   return (
     <>
