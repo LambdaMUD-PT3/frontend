@@ -5,6 +5,7 @@ export const initialState = {
   display: displays.defaultDisplay,
   text: 'Please enter a command.',
   username: '',
+  key: null,
 }
 
 export const reducer = (state = initialState, action) => {
@@ -30,7 +31,6 @@ export const reducer = (state = initialState, action) => {
       }
     case 'CHANGE_ROOM':
       const { title, description, name } = payload
-      console.log(title, description, name)
       return {
         ...state,
         username: name,

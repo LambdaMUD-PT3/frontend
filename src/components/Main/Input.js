@@ -5,7 +5,7 @@ import axios from 'axios'
 import { Context } from '../../context'
 
 const Input = () => {
-  const { dispatch } = useContext(Context)
+  const { state, dispatch } = useContext(Context)
   const [input, setInput] = useState('')
   const inputField = useRef(null)
   useEffect(() => {
@@ -42,24 +42,24 @@ const Input = () => {
               payload: 'Please enter your password',
             })
           } else {
-            const res = await axios.post(
-              'https://lambda-mud-test.herokuapp.com/api/login/',
-              {
+            const res = await axios({
+              method: 'POST',
+              url: 'https://lambda-mud-11.herokuapp.com/api/login/',
+              headers: { 'Content-Type': 'application/json' },
+              data: {
                 username: split[1],
                 password: split[2],
               },
-            )
+            })
             const { key } = res.data
             localStorage.setItem('mudkey', key)
             dispatch({ type: 'SET_KEY', payload: key })
-            const initRes = await axios.get(
-              'https://lambda-mud-test.herokuapp.com/api/adv/init/',
-              {
-                headers: {
-                  Authorization: `Token ${key}`,
-                },
+            const initRes = await axios({
+              url: 'https://lambda-mud-11.herokuapp.com/api/adv/init/',
+              headers: {
+                Authorization: `Token ${key}`,
               },
-            )
+            })
             console.log(initRes.data)
             dispatch({ type: 'CHANGE_ROOM', payload: initRes.data })
             setInput('')
@@ -77,27 +77,55 @@ const Input = () => {
               payload: 'Please enter your password',
             })
           } else {
-            const res = await axios.post(
-              'https://lambda-mud-test.herokuapp.com/api/registration/',
-              {
+            const res = await axios({
+              method: 'POST',
+              url: 'https://lambda-mud-11.herokuapp.com/api/registration/',
+              data: {
                 username: split[1],
+                email: 'no@email.com',
                 password1: split[2],
                 password2: split[2],
               },
-            )
+            })
             const { key } = res.data
             localStorage.setItem('mudkey', key)
             dispatch({ type: 'SET_KEY', payload: key })
-            const initRes = await axios.get(
-              'https://lambda-mud-test.herokuapp.com/api/adv/init/',
-              {
-                headers: {
-                  Authorization: `Token ${key}`,
-                },
+            const initRes = await axios({
+              method: 'GET',
+              url: 'https://lambda-mud-11.herokuapp.com/adventure/init',
+
+              headers: {
+                Authorization: `Token ${key}`,
               },
-            )
+            })
             console.log(initRes.data)
             dispatch({ type: 'CHANGE_ROOM', payload: initRes.data })
+            setInput('')
+          }
+          return
+        case 'move':
+          if (
+            !['north', 'west', 'east', 'south'].includes(split[1].toLowerCase())
+          ) {
+            dispatch({
+              type: 'INCOMPLETE_COMMAND',
+              payload: 'Please enter a direction to move.',
+            })
+          } else {
+            console.log(split[1][0])
+            console.log(state.key)
+            const res = await axios({
+              method: 'POST',
+              url: 'https://lambda-mud-11.herokuapp.com/api/adv/move/',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${state.key}`,
+              },
+              data: {
+                direction: split[1][0],
+              },
+            })
+            dispatch({ type: 'CHANGE_ROOM', payload: res.data })
             setInput('')
           }
           return
