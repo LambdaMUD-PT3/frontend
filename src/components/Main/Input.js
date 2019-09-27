@@ -61,6 +61,7 @@ const Input = () => {
               },
             })
             console.log(initRes.data)
+            localStorage.setItem('mudroom', JSON.stringify(initRes.data))
             dispatch({ type: 'CHANGE_ROOM', payload: initRes.data })
             setInput('')
           }
@@ -99,6 +100,7 @@ const Input = () => {
               },
             })
             console.log(initRes.data)
+            localStorage.setItem('mudroom', JSON.stringify(initRes.data))
             dispatch({ type: 'CHANGE_ROOM', payload: initRes.data })
             setInput('')
           }
@@ -125,6 +127,7 @@ const Input = () => {
                 direction: split[1][0],
               },
             })
+            localStorage.setItem('mudroom', JSON.stringify(res.data))
             dispatch({ type: 'CHANGE_ROOM', payload: res.data })
             setInput('')
           }
