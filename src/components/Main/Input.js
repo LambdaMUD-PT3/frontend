@@ -7,7 +7,9 @@ import { Context } from '../../context'
 const Input = () => {
   const { state, dispatch } = useContext(Context)
   const [input, setInput] = useState('')
+  const [password, setPassword] = useState('')
   const inputField = useRef(null)
+
   useEffect(() => {
     const tempEl = document.createElement('pre')
     tempEl.style.fontSize = '1.8rem'
@@ -18,6 +20,18 @@ const Input = () => {
     inputField.current.style.width = `${tempEl.offsetWidth + 10}px`
     tempEl.parentNode.removeChild(tempEl)
   }, [input])
+
+  const handleChange = e => {
+    const split = e.target.value.split(' ')
+    if ((split[0] === 'login' || split[0] === 'register') && split[2]) {
+      setPassword(password + split[2][split[2].length - 1])
+      const pass = '*'.repeat(password.length)
+      e.target.value = `${split[0]} ${split[1]} ${pass}`
+      setInput(e.target.value)
+    } else {
+      setInput(e.target.value)
+    }
+  }
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -36,7 +50,7 @@ const Input = () => {
               type: 'INCOMPLETE_COMMAND',
               payload: 'Please enter your username and password',
             })
-          } else if (split[1] && !split[2]) {
+          } else if (split[1] && !password) {
             dispatch({
               type: 'INCOMPLETE_COMMAND',
               payload: 'Please enter your password',
@@ -48,7 +62,7 @@ const Input = () => {
               headers: { 'Content-Type': 'application/json' },
               data: {
                 username: split[1],
-                password: split[2],
+                password: password,
               },
             })
             const { key } = res.data
@@ -72,7 +86,7 @@ const Input = () => {
               type: 'INCOMPLETE_COMMAND',
               payload: 'Please enter your username and password',
             })
-          } else if (split[1] && !split[2]) {
+          } else if (split[1] && !password) {
             dispatch({
               type: 'INCOMPLETE_COMMAND',
               payload: 'Please enter your password',
@@ -84,8 +98,8 @@ const Input = () => {
               data: {
                 username: split[1],
                 email: 'no@email.com',
-                password1: split[2],
-                password2: split[2],
+                password1: password,
+                password2: password,
               },
             })
             const { key } = res.data
@@ -149,7 +163,7 @@ const Input = () => {
         <input
           type='text'
           value={input}
-          onChange={e => setInput(e.target.value)}
+          onChange={e => handleChange(e)}
           ref={inputField}
         />
         <Caret onClick={() => inputField.current.focus()}>▍</Caret>
