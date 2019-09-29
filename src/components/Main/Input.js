@@ -127,8 +127,6 @@ const Input = () => {
               payload: 'Please enter a direction to move.',
             })
           } else {
-            console.log(split[1][0])
-            console.log(state.key)
             const res = await axios({
               method: 'POST',
               url: 'https://lambda-mud-11.herokuapp.com/api/adv/move/',
@@ -140,6 +138,21 @@ const Input = () => {
                 direction: split[1][0],
               },
             })
+            console.log(res.data)
+            if (res.data.error_msg) {
+              const current = state.text
+              dispatch({
+                type: 'INCOMPLETE_COMMAND',
+                payload: res.data.error_msg,
+              })
+              setTimeout(() => {
+                dispatch({
+                  type: 'INCOMPLETE_COMMAND',
+                  payload: current,
+                })
+              }, 1000)
+              return
+            }
             localStorage.setItem('mudroom', JSON.stringify(res.data))
             dispatch({ type: 'CHANGE_ROOM', payload: res.data })
             setInput('')
