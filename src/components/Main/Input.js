@@ -24,10 +24,15 @@ const Input = () => {
 	const handleChange = e => {
 		const split = e.target.value.split(' ');
 		if ((split[0] === 'login' || split[0] === 'register') && split[2]) {
-			setPassword(password + split[2][split[2].length - 1]);
+			if (e.nativeEvent.inputType === 'deleteContentBackward') {
+				setPassword(password.slice(0, password.length - 1));
+			} else {
+				setPassword(password + split[2][split[2].length - 1]);
+			}
 			const pass = '*'.repeat(password.length);
 			e.target.value = `${split[0]} ${split[1]} ${pass}`;
 			setInput(e.target.value);
+			console.log(password);
 		}
 		setInput(e.target.value);
 	};

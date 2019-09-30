@@ -7,7 +7,6 @@ const Display = () => {
 	const { display } = state;
 	const [currentDisplay, setCurrentDisplay] = useState('');
 	useEffect(() => {
-		console.log(display);
 		setCurrentDisplay(display);
 		// const displayArray = display.split('\n');
 		// displayArray.forEach((line, idx) => {
