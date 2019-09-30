@@ -9,6 +9,16 @@ export const initialState = {
 	map: null,
 	exits: null,
 	roomId: null,
+	commands: [
+		{
+			command: 'login',
+			example: '{username} {password}',
+		},
+		{
+			command: 'register',
+			example: '{username} {password}',
+		},
+	],
 };
 
 export const reducer = (state = initialState, action) => {
@@ -41,6 +51,9 @@ export const reducer = (state = initialState, action) => {
 				text: description,
 				exits,
 				roomId: room_id,
+				commands: [
+					{ command: 'move', example: '{north | south | east | west}' },
+				],
 			};
 		case 'LOAD_MAP':
 			return {
