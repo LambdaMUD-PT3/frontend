@@ -46,5 +46,7 @@ const RoomStyle = styled.div`
 	p {
 		font-size: 1.4rem;
 		margin-bottom: 20px;
+		padding: 10px;
+		text-align: center;
 	}
 `;
