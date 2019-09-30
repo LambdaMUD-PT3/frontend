@@ -44,10 +44,44 @@ export const reducer = (state = initialState, action) => {
 			};
 		case 'CHANGE_ROOM':
 			const { title, description, name, exits, room_id } = payload;
+			const { n, s, e, w } = exits;
+			let roomDisplay;
+			if (n && !s && !e && !w) {
+				roomDisplay = displays.northOnly;
+			} else if (e && s && n && !w) {
+				roomDisplay = displays.northEastSouth;
+			} else if (e && !s && !n && !w) {
+				roomDisplay = displays.eastOnly;
+			} else if (e && !s && n && !w) {
+				roomDisplay = displays.eastNorth;
+			} else if (e && s && !n && !w) {
+				roomDisplay = displays.eastSouth;
+			} else if (e && !s && n && w) {
+				roomDisplay = displays.eastNorthWest;
+			} else if (e && s && n && w) {
+				roomDisplay = displays.allDirections;
+			} else if (!e && s && n && w) {
+				roomDisplay = displays.northWestSouth;
+			} else if (!e && !s && n && w) {
+				roomDisplay = displays.northWest;
+			} else if (!e && s && n && !w) {
+				roomDisplay = displays.northSouth;
+			} else if (!e && !s && !n && w) {
+				roomDisplay = displays.westOnly;
+			} else if (e && !s && !n && w) {
+				roomDisplay = displays.westEast;
+			} else if (!e && s && !n && w) {
+				roomDisplay = displays.westSouth;
+			} else if (e && s && !n && w) {
+				roomDisplay = displays.westEastSouth;
+			} else if (!e && s && !n && !w) {
+				roomDisplay = displays.southOnly;
+			}
 			return {
 				...state,
 				username: name,
 				heading: title,
+				display: roomDisplay,
 				text: description,
 				exits,
 				roomId: room_id,

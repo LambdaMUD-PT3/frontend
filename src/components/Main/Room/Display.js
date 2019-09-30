@@ -7,12 +7,14 @@ const Display = () => {
 	const { display } = state;
 	const [currentDisplay, setCurrentDisplay] = useState('');
 	useEffect(() => {
-		const displayArray = display.split('\n');
-		displayArray.forEach((line, idx, arr) => {
-			setTimeout(() => {
-				setCurrentDisplay(c => c + line + '\n');
-			}, idx * 150);
-		});
+		console.log(display);
+		setCurrentDisplay(display);
+		// const displayArray = display.split('\n');
+		// displayArray.forEach((line, idx) => {
+		// 	setTimeout(() => {
+		// 		setCurrentDisplay(c => c + line + '\n');
+		// 	}, idx * 150);
+		// });
 	}, [display]);
 	return <pre>{currentDisplay}</pre>;
 };
