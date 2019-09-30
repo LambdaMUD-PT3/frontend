@@ -89,6 +89,9 @@ const MapContainer = styled.div`
 	border-top: 3px solid #fff;
 	border-bottom: 3px solid #fff;
 	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
 	&:before {
 		content: '';
@@ -112,5 +115,6 @@ const MapContainer = styled.div`
 	h2 {
 		color: #fff;
 		font-size: 2rem;
+		margin-top: 10px;
 	}
 `;
