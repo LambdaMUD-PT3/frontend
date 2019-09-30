@@ -11,10 +11,10 @@ const Commands = () => {
 			<h2>Commands</h2>
 			<table>
 				<tbody>
-					{commands.map(comm => {
+					{commands.map((comm, idx) => {
 						const { command, example } = comm;
 						return (
-							<tr>
+							<tr key={idx}>
 								<td>{command}</td>
 								<td>{example}</td>
 							</tr>
